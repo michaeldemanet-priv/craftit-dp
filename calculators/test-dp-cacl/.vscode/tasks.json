@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Test",
+      "type": "shell",
+      "command": "uv run riskfoundry test",
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Run sample rows",
+      "type": "shell",
+      "command": "uv run riskfoundry calc run --manifest calculator.yaml --input fixtures/inputs.jsonl",
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Run dataset",
+      "type": "shell",
+      "command": "uv run riskfoundry calc run --manifest calculator.yaml --dataset key",
+      "group": "none",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Check",
+      "type": "shell",
+      "command": "uv run riskfoundry check",
+      "group": "none",
+      "presentation": { "reveal": "always", "panel": "shared" }
+    }
+  ]
+}

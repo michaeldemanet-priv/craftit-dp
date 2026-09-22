@@ -1,0 +1,52 @@
+# The calculator manifest. It declares — it never builds and never grants.
+schemaVersion: 1
+
+# Durable identity. This must stay equal to the folder name; renaming it is a migration.
+calculatorKey: test-dp-cacl
+
+# The wire protocol your handler speaks. Stable across product renames.
+protocolVersion: codecalc.protocol/v1
+
+runtime:
+  language: python
+  image: codecalc-python-runtime
+  version: "1.2.0"
+
+# The entry point, as <path>:<symbol>. One exported handler — the implementation may span many files.
+handler: src/calculator.py:calculate
+
+dependencies:
+  manifest: pyproject.toml
+  # Your calculator cannot publish without a populated lock file: unlocked dependencies would make a
+  # published revision non-reproducible. Regenerate it with `uv lock` after changing pyproject.toml.
+  lock: uv.lock
+
+# The contract between the platform and this calculator: the fields your handler reads from each
+# record, and the fields it writes back. Types are the wire's own — a platform Number is `decimal`
+# here, never `integer`.
+# Declaring is optional; once you declare, publishing checks the declaration against the calculator's
+# mapped variables and refuses a mismatch by name and by type.
+# Generated from this calculator's mapped variables on the platform. Keep the two in step
+# (see README.md): publishing refuses a declaration that disagrees with the mapping.
+inputs:
+  - name: input_1
+    type: decimal
+  - name: input_2
+    type: decimal
+outputs:
+  - name: output_1
+    type: decimal
+
+# Version-pinned reference datasets, preloaded before the run. There is no "latest".
+references: []
+
+# A request, never a grant: the server intersects this with what the model is authorized for.
+permissions:
+  datasets:
+    read: []
+    publish: []
+
+# Optional. May only narrow the server defaults, never widen them.
+# limits:
+#   timeoutSeconds: 300
+#   memoryMb: 512

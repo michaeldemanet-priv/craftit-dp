@@ -55,7 +55,7 @@ def calculate(
             record_id=record.id,
         )
         context.progress(idx)
-        yield {"recordId": record.id, "values": {"final_score": descriptive_score}}
+        yield {"recordId": record.id, "values": {"final_score": score, "descriptive_score": descriptive_score}}
 
 
 def calc_intermediate(credit_score: Any, ltd_ratio: Any) -> int:

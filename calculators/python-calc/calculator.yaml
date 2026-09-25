@@ -42,6 +42,8 @@ inputs:
 outputs:
   - name: final_score
     type: string
+  - name: descriptive_score
+    type: string
 
 # Version-pinned reference datasets, preloaded before the run. There is no "latest".
 references: []

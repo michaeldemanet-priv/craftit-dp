@@ -43,7 +43,7 @@ def test_emits_the_declared_output_fields():
     """
     output = list(calculate(context(), [record("r1", id_=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000)]))
 
-    assert set(output[0]["values"]) == {"final_score"}
+    assert set(output[0]["values"]) == {"final_score", "descriptive_score"}
     # credit_score 1000 minus ltd_ratio 1000 (as percent) falls off the bottom of the table.
     assert output[0]["values"]["final_score"] == "-"
 

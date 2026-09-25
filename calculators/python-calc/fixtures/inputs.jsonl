@@ -1,3 +1,6 @@
-{"id": "r1", "id_": 1000, "sector": "sector-1", "revenue": 1000, "credit_score": 1000, "ltd_ratio": 1000}
-{"id": "r2", "id_": 2500.5, "sector": "sector-2", "revenue": 2500.5, "credit_score": 2500.5, "ltd_ratio": 2500.5}
-{"id": "r3", "id_": 42000, "sector": "sector-3", "revenue": 42000, "credit_score": 42000, "ltd_ratio": 42000}
+{"id": "1", "id_": 1, "sector": "Technology", "revenue": 45000000, "credit_score": 720, "ltd_ratio": 0.35}
+{"id": "2", "id_": 2, "sector": "Energy", "revenue": 12000000, "credit_score": 580, "ltd_ratio": 0.72}
+{"id": "3", "id_": 3, "sector": "Healthcare", "revenue": 28000000, "credit_score": 690, "ltd_ratio": 0.48}
+{"id": "4", "id_": 4, "sector": "Technology", "revenue": 95000000, "credit_score": 810, "ltd_ratio": 0.15}
+{"id": "5", "id_": 5, "sector": "Energy", "revenue": 8500000, "credit_score": 640, "ltd_ratio": 0.61}
+{"id": "6", "id_": 6, "sector": "Healthcare", "revenue": 62000000, "credit_score": 750, "ltd_ratio": 0.01}

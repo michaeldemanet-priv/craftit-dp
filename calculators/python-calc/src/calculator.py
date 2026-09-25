@@ -1,9 +1,28 @@
-"""python-calc — a RiskFoundry code calculator."""
+"""python-calc — a RiskFoundry code calculator.
+
+Reads one obligor per record (the dp-rest row, with the lake id carried as ``id_``)
+and writes ``final_score``, a letter grade from credit score and leverage.
+"""
 
 from collections.abc import Iterable, Iterator
+from decimal import Decimal
 from typing import Any
 
 import riskfoundry as rf
+from ref_table import get_score
+
+# Adjusted score floors, best grade first. The key is an index into SCORE_TABLE.
+_BANDS: tuple[tuple[int, int], ...] = (
+    (780, 3),  # AAA
+    (720, 2),  # AA
+    (670, 1),  # A
+    (630, 6),  # BBB
+    (590, 5),  # BB
+    (550, 4),  # B
+    (510, 9),  # CCC
+    (470, 8),  # CC
+    (430, 7),  # C
+)
 
 
 def calculate(
@@ -12,20 +31,51 @@ def calculate(
 ) -> Iterator[dict[str, Any]]:
     """Produce one output record per input record.
 
-    Args:
-        context: Run metadata, progress reporting and diagnostics. ``context.progress(n)`` and
-            ``context.warning(code, message)`` are the two you will reach for; your editor knows the
-            rest, because the SDK ships its types.
-        records: The input records, streamed. Iterate once; do not materialize the whole input.
-
-    Yields:
-        One mapping per input record: ``recordId`` correlates the output back to its input, and
-        ``values`` holds the calculated fields. Output may be emitted in any order — correlation is by
-        ``recordId``, never by position.
-
-    The names you may read and write are the ones ``calculator.yaml`` declares under ``inputs`` and
-    ``outputs``. A record carries exactly the declared inputs, and a value written under a name no
-    output declares fails the run rather than being dropped.
+    The names read and written are the ones ``calculator.yaml`` declares. A value
+    written under a name no output declares fails the run.
     """
-    for record in records:
-        yield {"recordId": record.id, "values": {"final_score": ""}}
+    context.info("scoring", "Calculating final_score")
+    for idx, record in enumerate(records, start=1):
+        obligor_id = record["id_"]
+        sector = record["sector"]
+        revenue = record["revenue"]
+        credit_score = record["credit_score"]
+        ltd_ratio = record["ltd_ratio"]
+
+        adjusted = calc_intermediate(credit_score, ltd_ratio)
+        score_key = calc_score_key(adjusted)
+        score = get_score(score_key)
+        context.info(
+            "scored",
+            f"id_={obligor_id} sector={sector} revenue={revenue} "
+            f"credit_score={credit_score} ltd_ratio={ltd_ratio} "
+            f"adjusted={adjusted} key={score_key} final_score={score}",
+            record_id=record.id,
+        )
+        context.progress(idx)
+        yield {"recordId": record.id, "values": {"final_score": score}}
+
+
+def calc_intermediate(credit_score: Any, ltd_ratio: Any) -> int:
+    """Credit score minus one point per percentage point of LTD ratio.
+
+    ``ltd_ratio`` of 0.35 subtracts 35. A higher result is a stronger obligor.
+    """
+    penalty = int(_number(ltd_ratio) * 100)
+    return int(_number(credit_score)) - penalty
+
+
+def calc_score_key(adjusted: int) -> int:
+    """Map an adjusted score onto a key in the grade table. 10 is the weakest."""
+    for floor, key in _BANDS:
+        if adjusted >= floor:
+            return key
+    return 10
+
+
+def _number(value: Any) -> Decimal:
+    if isinstance(value, Decimal):
+        return value
+    if isinstance(value, int):
+        return Decimal(value)
+    return Decimal(str(value))

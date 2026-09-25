@@ -50,3 +50,7 @@ url = "http://host.docker.internal:8099/simple/"
 
 [dependency-groups]
 dev = ["pytest>=8", "riskfoundry-sdk[cli]"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "src"]

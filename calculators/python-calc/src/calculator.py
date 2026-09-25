@@ -45,15 +45,17 @@ def calculate(
         adjusted = calc_intermediate(credit_score, ltd_ratio)
         score_key = calc_score_key(adjusted)
         score = get_score(score_key)
+        descriptive_score = f"""id_={obligor_id} sector={sector} revenue={revenue}
+            credit_score={credit_score} ltd_ratio={ltd_ratio}
+            adjusted={adjusted} key={score_key} final_score={score}"""
+
         context.info(
             "scored",
-            f"id_={obligor_id} sector={sector} revenue={revenue} "
-            f"credit_score={credit_score} ltd_ratio={ltd_ratio} "
-            f"adjusted={adjusted} key={score_key} final_score={score}",
+            descriptive_score,
             record_id=record.id,
         )
         context.progress(idx)
-        yield {"recordId": record.id, "values": {"final_score": score}}
+        yield {"recordId": record.id, "values": {"final_score": descriptive_score}}
 
 
 def calc_intermediate(credit_score: Any, ltd_ratio: Any) -> int:

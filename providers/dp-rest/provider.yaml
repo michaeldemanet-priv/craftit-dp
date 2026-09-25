@@ -39,15 +39,7 @@ sources: []
 # which columns it writes. `outputs: []` is how you say it writes none.
 # The wireframe test population. Names are the wire form of Sector, Revenue,
 # LTD_Ratio and CreditScore: a field must match ^[a-z_][a-z0-9_]*$.
-outputs:
-  - name: sector
-    type: string
-  - name: revenue
-    type: decimal
-  - name: ltd_ratio
-    type: decimal
-  - name: credit_score
-    type: decimal
+outputs: []
 
 # Version-pinned reference datasets, preloaded before the run. There is no "latest".
 references: []

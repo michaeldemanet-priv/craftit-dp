@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run dataset" type="PythonConfigurationType" factoryName="Python">
+    <option name="SCRIPT_NAME" value="" />
+    <option name="PARAMETERS" value="calc run --manifest calculator.yaml --dataset key" />
+    <option name="MODULE_MODE" value="true" />
+    <option name="MODULE_NAME" value="riskfoundry" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run sample rows",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "riskfoundry",
+      "args": ["calc", "run", "--manifest", "calculator.yaml", "--input", "fixtures/inputs.jsonl"],
+      "justMyCode": true
+    },
+    {
+      "name": "Test",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [],
+      "justMyCode": true
+    },
+    {
+      "name": "Run dataset",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "riskfoundry",
+      "args": ["calc", "run", "--manifest", "calculator.yaml", "--dataset", "<key>"],
+      "justMyCode": true
+    },
+    {
+      "name": "Check",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "riskfoundry",
+      "args": ["check"],
+      "justMyCode": true
+    }
+  ]
+}

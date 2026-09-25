@@ -1,0 +1,52 @@
+[project]
+name = "python-calc"
+version = "0.1.0"
+description = "A code calculator."
+requires-python = ">=3.12"
+dependencies = [
+    "riskfoundry-sdk",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+# Two ways to reach the SDK, and only one may be active at a time.
+#
+# 1. The package feed, below. This is the form that ships: every machine — laptop,
+#    build agent, runtime image — resolves the same published wheel, so a lock file
+#    made on one of them is meaningful on the others.
+#
+#    The index is deliberately not `explicit`. An explicit index serves only the
+#    distributions named under `[tool.uv.sources]`, and the SDK's own runtime dependency
+#    is not one of them: it would be resolved from the public default index instead,
+#    where it is not published and where the name is free for anyone else to take.
+#    Declared like this the feed outranks the default index for everything it carries,
+#    and public packages still fall through to it.
+[[tool.uv.index]]
+name = "riskfoundry"
+url = "http://host.docker.internal:8099/simple/"
+
+[tool.uv.sources]
+"riskfoundry-sdk" = { index = "riskfoundry" }
+
+# 2. A local checkout, for while the feed does not exist yet. If `uv sync` cannot
+#    resolve the index above, comment out both blocks and uncomment these:
+#
+#    [tool.uv.sources]
+#    "riskfoundry-sdk" = { path = "<sdk-checkout>/sdk/python/facade", editable = true }
+#    "codecalc-sdk" = { path = "<sdk-checkout>/sdk/python/core", editable = true }
+#
+#    Both entries are needed here, unlike in the feed form: a path source applies to the
+#    one distribution it names and does not carry to what that distribution depends on.
+#
+#    Machine-specific by nature: the path is right on one laptop and wrong
+#    everywhere else, so keep this form local and do not commit it. Publishing
+#    reads the committed file, so a revision built from it would not resolve.
+#    Delete this note once the feed is live.
+
+[dependency-groups]
+dev = ["pytest>=8", "riskfoundry-sdk[cli]"]

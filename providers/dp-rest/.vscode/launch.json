@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run provider",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "riskfoundry",
+      "args": ["provider", "run", "--manifest", "provider.yaml", "--print", "5"],
+      "justMyCode": true
+    },
+    {
+      "name": "Test",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [],
+      "justMyCode": true
+    },
+    {
+      "name": "Check",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "riskfoundry",
+      "args": ["check"],
+      "justMyCode": true
+    }
+  ]
+}

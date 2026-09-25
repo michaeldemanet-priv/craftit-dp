@@ -1,10 +1,9 @@
 [project]
-name = "dp-demo"
+name = "dp-random"
 version = "0.1.0"
-description = "A code data provider."
+description = "random number generator"
 requires-python = ">=3.12"
 dependencies = [
-    "pyodbc",
     "riskfoundry-sdk",
 ]
 

@@ -1,10 +1,7 @@
-"""Tests for the dp-demo provider.
+"""Tests for the dp-random provider.
 
 These run locally with `uv run pytest` — no container, no platform connection.
-They do read the local SQL Server source table `dummydb.dbo.DpDemoInputs`.
 """
-
-from decimal import Decimal
 
 import riskfoundry as rf
 
@@ -24,9 +21,11 @@ def context() -> rf.InvocationContext:
 def test_produces_records():
     output = list(build(context()))
 
-    assert [row["recordId"] for row in output] == [f"row-{number}" for number in range(10)]
-    assert output[0]["values"] == {"input_1": Decimal(1), "input_2": Decimal(0)}
-    assert output[9]["values"] == {"input_1": Decimal(10), "input_2": Decimal(90)}
+    assert [row["recordId"] for row in output] == ["row-0", "row-1",
+                                                   "row-2", "row-3",
+                                                   "row-4", "row-5",
+                                                   "row-6", "row-7",
+                                                   "row-8", "row-9"]
 
 
 def test_emits_the_declared_output_fields():
@@ -47,7 +46,7 @@ def test_streams_rather_than_materializing():
 
     assert next(iter(produced))["recordId"] == "row-0"
 
-def test_prints_the_values():
+def test_prints_the_random_values():
     output = list(build(context()))
     for row in output:
         print(row["recordId"], row["values"]["input_2"])

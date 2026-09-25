@@ -1,0 +1,66 @@
+# The provider manifest. It declares — it never builds, never connects, and never grants.
+schemaVersion: 1
+
+# Durable identity. This must stay equal to the folder name; renaming it is a migration.
+providerKey: dp-rest
+
+# The wire protocol your handler speaks. Stable across product renames.
+protocolVersion: codecalc.protocol/v1
+
+runtime:
+  language: python
+  image: codecalc-python-runtime
+  version: "1.2.0"
+
+# The entry point, as <path>:<symbol>. A provider handler takes the context alone — it has no input
+# stream to consume, because it produces the records itself.
+handler: src/provider.py:build
+
+# Where this provider may run: local | sandbox | both.
+execution: both
+
+dependencies:
+  manifest: pyproject.toml
+  # Your provider cannot publish without a populated lock file: unlocked dependencies would make a
+  # published revision non-reproducible. Regenerate it with `uv lock` after changing pyproject.toml.
+  lock: uv.lock
+
+# The sources this provider requests, by administrator-configured profile name. Never a connection
+# string, a host, or a credential — this file lives in Git.
+# sources:
+#   - kind: http
+#     profile: internal-ratings-api
+sources: []
+
+# The columns this provider writes into its dataset, and the wire type each carries. A provider has
+# no `inputs` block — it produces records rather than consuming them. Types are the wire's own: a
+# platform Number is `decimal` here, never `integer`.
+# Unlike a calculator's, this block is not optional: publishing refuses a provider that does not say
+# which columns it writes. `outputs: []` is how you say it writes none.
+# The wireframe test population. Names are the wire form of Sector, Revenue,
+# LTD_Ratio and CreditScore: a field must match ^[a-z_][a-z0-9_]*$.
+outputs:
+  - name: sector
+    type: string
+  - name: revenue
+    type: decimal
+  - name: ltd_ratio
+    type: decimal
+  - name: credit_score
+    type: decimal
+
+# Version-pinned reference datasets, preloaded before the run. There is no "latest".
+references: []
+
+# A request, never a grant: the server intersects this with what the model is authorized for.
+permissions:
+  datasets:
+    read: []
+    publish: []
+
+# Optional. May only narrow the server defaults, never widen them.
+# limits:
+#   timeoutSeconds: 300
+#   memoryMb: 512
+#   maxRows: 1000000
+#   batchSize: 500

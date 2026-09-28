@@ -42,7 +42,7 @@ def handle_request(method: str, target: str, reader: LakeReader) -> tuple[int, J
     return 200, {
         "records": [
             {
-                "id": record.id,
+                "entityid": record.entityid,
                 "sector": record.sector,
                 "revenue": record.revenue,
                 "ltd_ratio": record.ltd_ratio,

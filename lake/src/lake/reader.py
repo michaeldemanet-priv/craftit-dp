@@ -23,7 +23,7 @@ class LakeReadError(Exception):
 
 @dataclass(frozen=True)
 class Record:
-    id: str
+    entityid: str
     sector: str
     revenue: str
     ltd_ratio: str
@@ -92,10 +92,10 @@ def _record(raw: str, line_number: int) -> Record:
     if not isinstance(payload, Mapping):
         raise LakeReadError(f"line {line_number} is not an object")
 
-    record_id = _text(payload, "id", line_number)
+    record_id = _text(payload, "entityid", line_number)
     sector = _text(payload, "sector", line_number)
     return Record(
-        id=record_id,
+        entityid=record_id,
         sector=sector,
         revenue=_decimal(payload, "revenue", line_number),
         ltd_ratio=_decimal(payload, "ltd_ratio", line_number),

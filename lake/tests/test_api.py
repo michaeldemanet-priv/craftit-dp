@@ -21,7 +21,7 @@ class RecordingLake:
         return Page(
             records=(
                 Record(
-                    id="1",
+                    entityid="1",
                     sector="Technology",
                     revenue="45000000",
                     ltd_ratio="0.35",

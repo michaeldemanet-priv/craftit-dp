@@ -85,9 +85,9 @@ def _record(context: rf.InvocationContext, row: Any) -> dict[str, Any] | None:
         context.warning("lake_row_unusable", "record is not an object")
         return None
 
-    record_id = row.get("id")
+    record_id = row.get("entityid")
     if not isinstance(record_id, str) or record_id == "":
-        context.warning("lake_row_unusable", "record has no id")
+        context.warning("lake_row_unusable", "record has no entityid")
         return None
 
     obligor_id = _decimal(context, record_id, "entityid", record_id)

@@ -81,14 +81,14 @@ wheels = [
 
 [[package]]
 name = "codecalc-sdk"
-version = "0.1.0"
+version = "0.1.2"
 source = { registry = "http://host.docker.internal:8099/simple/" }
 dependencies = [
     { name = "httpx" },
     { name = "pyyaml" },
 ]
 wheels = [
-    { url = "http://host.docker.internal:8099/packages/codecalc_sdk-0.1.0-py3-none-any.whl", hash = "sha256:b7da958472533972973a01707ecc50e4243ed928f91a16df5c3e1654963a036f" },
+    { url = "http://host.docker.internal:8099/packages/codecalc_sdk-0.1.2-py3-none-any.whl", hash = "sha256:a12ff02456693970f3257d49ee4607a1d57e5761371d2041925c772f92f857cd" },
 ]
 
 [package.optional-dependencies]
@@ -404,13 +404,13 @@ wheels = [
 
 [[package]]
 name = "riskfoundry-sdk"
-version = "0.1.0"
+version = "0.1.2"
 source = { registry = "http://host.docker.internal:8099/simple/" }
 dependencies = [
     { name = "codecalc-sdk" },
 ]
 wheels = [
-    { url = "http://host.docker.internal:8099/packages/riskfoundry_sdk-0.1.0-py3-none-any.whl", hash = "sha256:4c3ab4f626a928ad379cc98ae7b2c00931932fc51e1a59a9a5172a2b7511edb7" },
+    { url = "http://host.docker.internal:8099/packages/riskfoundry_sdk-0.1.2-py3-none-any.whl", hash = "sha256:cd619c803862956c2859c9962792d7cffeaa3b09f1b1ac19b411b824a3b6921d" },
 ]
 
 [package.optional-dependencies]

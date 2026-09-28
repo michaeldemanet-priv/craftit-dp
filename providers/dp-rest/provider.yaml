@@ -48,7 +48,7 @@ outputs:
     type: string
   - name: credit_score
     type: decimal
-  - name: id_
+  - name: entityid
     type: decimal
 
 # Version-pinned reference datasets, preloaded before the run. There is no "latest".

@@ -29,7 +29,7 @@ dependencies:
 # Generated from this calculator's mapped variables on the platform. Keep the two in step
 # (see README.md): publishing refuses a declaration that disagrees with the mapping.
 inputs:
-  - name: id_
+  - name: entityid
     type: decimal
   - name: sector
     type: string

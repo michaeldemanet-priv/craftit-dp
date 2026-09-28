@@ -28,7 +28,7 @@ def record(record_id: str, **values) -> rf.Record:
 
 
 def test_emits_one_output_per_input():
-    records = [record("r1", id_=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000), record("r2", id_=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000)]
+    records = [record("r1", entityid=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000), record("r2", entityid=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000)]
 
     output = list(calculate(context(), records))
 
@@ -41,7 +41,7 @@ def test_emits_the_declared_output_fields():
     A value written under a name no output declares fails the run — it is not dropped — so this
     assertion is the cheapest place to notice a rename.
     """
-    output = list(calculate(context(), [record("r1", id_=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000)]))
+    output = list(calculate(context(), [record("r1", entityid=1000, sector="sample", revenue=1000, credit_score=1000, ltd_ratio=1000)]))
 
     assert set(output[0]["values"]) == {"final_score", "descriptive_score"}
     # credit_score 1000 minus ltd_ratio 1000 (as percent) falls off the bottom of the table.
@@ -49,7 +49,7 @@ def test_emits_the_declared_output_fields():
 
 
 def test_scores_lake_obligors_from_credit_and_leverage():
-    """The six dp-rest rows, with the lake id carried as id_."""
+    """The six dp-rest rows, with the lake id carried as entityid."""
     rows = [
         ("1", 1, "Technology", "45000000", "720", "0.35", "A"),
         ("2", 2, "Energy", "12000000", "580", "0.72", "CC"),
@@ -61,7 +61,7 @@ def test_scores_lake_obligors_from_credit_and_leverage():
     records = [
         record(
             record_id,
-            id_=obligor_id,
+            entityid=obligor_id,
             sector=sector,
             revenue=revenue,
             credit_score=credit_score,

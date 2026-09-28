@@ -1,6 +1,6 @@
 """python-calc — a RiskFoundry code calculator.
 
-Reads one obligor per record (the dp-rest row, with the lake id carried as ``id_``)
+Reads one obligor per record (the dp-rest row, with the lake id carried as ``entityid``)
 and writes ``final_score``, a letter grade from credit score and leverage.
 """
 
@@ -36,7 +36,7 @@ def calculate(
     """
     context.info("scoring", "Calculating final_score")
     for idx, record in enumerate(records, start=1):
-        obligor_id = record["id_"]
+        obligor_id = record["entityid"]
         sector = record["sector"]
         revenue = record["revenue"]
         credit_score = record["credit_score"]
@@ -45,7 +45,7 @@ def calculate(
         adjusted = calc_intermediate(credit_score, ltd_ratio)
         score_key = calc_score_key(adjusted)
         score = get_score(score_key)
-        descriptive_score = f"""id_={obligor_id} sector={sector} revenue={revenue}
+        descriptive_score = f"""entityid={obligor_id} sector={sector} revenue={revenue}
             credit_score={credit_score} ltd_ratio={ltd_ratio}
             adjusted={adjusted} key={score_key} final_score={score}"""
 

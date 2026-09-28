@@ -90,12 +90,16 @@ def _record(context: rf.InvocationContext, row: Any) -> dict[str, Any] | None:
         context.warning("lake_row_unusable", "record has no id")
         return None
 
+    obligor_id = _decimal(context, record_id, "id_", record_id)
+    if obligor_id is None:
+        return None
+
     sector = row.get("sector")
     if not isinstance(sector, str) or sector == "":
         context.warning("lake_row_unusable", "record has no sector", record_id=record_id)
         return None
 
-    values: dict[str, Any] = {"sector": sector}
+    values: dict[str, Any] = {"id_": obligor_id, "sector": sector}
     for name in ("revenue", "ltd_ratio", "credit_score"):
         number = _decimal(context, record_id, name, row.get(name))
         if number is None:

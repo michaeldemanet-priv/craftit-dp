@@ -1,0 +1,6 @@
+{"id": "1", "credit_score": "720", "entityid": "1", "ltd_ratio": "0.35", "revenue": "45000000", "sector": "Technology"}
+{"id": "2", "credit_score": "580", "entityid": "2", "ltd_ratio": "0.72", "revenue": "12000000", "sector": "Energy"}
+{"id": "3", "credit_score": "690", "entityid": "3", "ltd_ratio": "0.48", "revenue": "28000000", "sector": "Healthcare"}
+{"id": "4", "credit_score": "810", "entityid": "4", "ltd_ratio": "0.15", "revenue": "95000000", "sector": "Technology"}
+{"id": "5", "credit_score": "640", "entityid": "5", "ltd_ratio": "0.61", "revenue": "8500000", "sector": "Energy"}
+{"id": "6", "credit_score": "750", "entityid": "6", "ltd_ratio": "0.01", "revenue": "62000000", "sector": "Healthcare"}

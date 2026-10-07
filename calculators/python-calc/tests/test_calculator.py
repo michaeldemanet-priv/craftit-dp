@@ -51,11 +51,11 @@ def test_emits_the_declared_output_fields():
 def test_scores_lake_obligors_from_credit_and_leverage():
     """The six dp-rest rows, with the lake id carried as entityid."""
     rows = [
-        ("1", 1, "Technology", "45000000", "720", "0.35", "A"),
-        ("2", 2, "Energy", "12000000", "580", "0.72", "CC"),
-        ("3", 3, "Healthcare", "28000000", "690", "0.48", "BBB"),
+        ("1", 1, "Technology", "45000000", "720", "0.35", "BBB"),
+        ("2", 2, "Energy", "12000000", "580", "0.72", "C"),
+        ("3", 3, "Healthcare", "28000000", "690", "0.48", "BB"),
         ("4", 4, "Technology", "95000000", "810", "0.15", "AAA"),
-        ("5", 5, "Energy", "8500000", "640", "0.61", "B"),
+        ("5", 5, "Energy", "8500000", "640", "0.61", "CCC"),
         ("6", 6, "Healthcare", "62000000", "750", "0.01", "AA"),
     ]
     records = [

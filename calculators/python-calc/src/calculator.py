@@ -63,7 +63,7 @@ def calc_intermediate(credit_score: Any, ltd_ratio: Any) -> int:
 
     ``ltd_ratio`` of 0.35 subtracts 35. A higher result is a stronger obligor.
     """
-    penalty = int(_number(ltd_ratio) * 200)
+    penalty = int(_number(ltd_ratio) * 100)
     return int(_number(credit_score)) - penalty
 
 
